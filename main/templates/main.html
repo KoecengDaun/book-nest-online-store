@@ -1,0 +1,70 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ app_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .price {
+            color: green;
+            font-weight: bold;
+        }
+        .stock {
+            font-size: 0.9em;
+            color: #888;
+        }
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ app_name }}</h1>
+        <h2>Kelas: {{ class_name }}</h2>
+    </header>
+
+    <section>
+        <h3>Daftar Buku</h3>
+        <ul>
+            {% for product in products %}
+            <li>
+                <strong>{{ product.name }}</strong> - {{ product.author }} ({{ product.publication_year }})<br>
+                <span class="price">Rp {{ product.price|intcomma }}</span><br>
+                {{ product.description }}<br>
+                <span class="stock">Stok: {{ product.stock }} buku</span><br>
+                {% if product.isbn %}
+                ISBN: {{ product.isbn }}
+                {% endif %}
+            </li>
+            {% empty %}
+            <li>Tidak ada buku tersedia saat ini.</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 BookHub - Toko Buku Online. All rights reserved.</p>
+    </footer>
+</body>
+</html>
