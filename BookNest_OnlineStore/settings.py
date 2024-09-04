@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-go_%iccr609bqa*l_@0li^d%b^96g@z3jsg_q&=y8$7hi@%_d7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1","laurentius-farel-BookNestOnlineStore.pbp.cs.ui.ac.id"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1","laurentius-farel-book-nest-online-store.pbp.cs.ui.ac.id"]
 
 
 # Application definition
