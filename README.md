@@ -133,7 +133,7 @@ Berikut langkah-langkah yang saya lakukan untuk mengimplementasikan checklist tu
    
 ### Gambar-Gambar
 
-![XML by ID](Screenshot/XML%20by%20ID.png)
-![XML](Screenshot/XML.png)
-![JSON by ID](Screenshot/JSON%20by%20ID.png)
-![JSON](Screenshot/JSON.png)
+![XML by ID](ScreenShot/XML%20by%20ID.png)
+![XML](ScreenShot/XML.png)
+![JSON by ID](ScreenShot/JSON%20by%20ID.png)
+![JSON](ScreenShot/JSON.png)
