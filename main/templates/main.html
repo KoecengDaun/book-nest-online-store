@@ -36,6 +36,28 @@
             font-size: 0.8em;
             color: #666;
         }
+        form {
+            margin-bottom: 30px;
+        }
+        form input, form textarea {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -45,6 +67,15 @@
     </header>
 
     <section>
+        <!-- Form untuk menambahkan produk baru -->
+        <h3>Tambah Buku Baru</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Tambah Produk</button>
+        </form>
+
+        <!-- Daftar Buku yang sudah ada -->
         <h3>Daftar Buku</h3>
         <ul>
             {% for product in products %}
@@ -64,7 +95,7 @@
     </section>
 
     <footer>
-        <p>&copy; 2024 BookHub - Toko Buku Online. All rights reserved.</p>
+        <p>&copy; 2024 BookHub - Toko Buku Online. Untuk Tugas PBP tidak ada buku asli.</p>
     </footer>
 </body>
 </html>
