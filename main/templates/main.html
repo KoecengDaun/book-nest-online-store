@@ -64,16 +64,25 @@
     <header>
         <h1>{{ app_name }}</h1>
         <h2>Kelas: {{ class_name }}</h2>
+        {% if user.is_authenticated %}
+            <p>Welcome, {{ user.username }}! <a href="{% url 'user_logout' %}">Logout</a></p>
+        {% else %}
+            <p><a href="{% url 'user_login' %}">Login</a> | <a href="{% url 'register' %}">Register</a></p>
+        {% endif %}
     </header>
 
     <section>
-        <!-- Form untuk menambahkan produk baru -->
+        {% if user.is_authenticated %}
+        <!-- Form untuk menambahkan produk baru (hanya terlihat jika login) -->
         <h3>Tambah Buku Baru</h3>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Tambah Produk</button>
         </form>
+        {% else %}
+        <p>Silakan <a href="{% url 'user_login' %}">login</a> untuk menambahkan produk.</p>
+        {% endif %}
 
         <!-- Daftar Buku yang sudah ada -->
         <h3>Daftar Buku</h3>
@@ -87,6 +96,9 @@
                 {% if product.isbn %}
                 ISBN: {{ product.isbn }}
                 {% endif %}
+                <br>
+                <!-- Link ke halaman detail produk -->
+                <a href="{% url 'product_detail' product.id %}">Lihat Detail</a> 
             </li>
             {% empty %}
             <li>Tidak ada buku tersedia saat ini.</li>

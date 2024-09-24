@@ -1,0 +1,54 @@
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Produk</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .product-detail {
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 5px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .price {
+            color: green;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .stock {
+            color: #888;
+            font-size: 0.9em;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <div class="product-detail">
+        <p><strong>Penulis:</strong> {{ product.author }}</p>
+        <p><strong>Genre:</strong> {{ product.genre }}</p>
+        <p><strong>Tahun Terbit:</strong> {{ product.publication_year }}</p>
+        <p><strong>Deskripsi:</strong> {{ product.description }}</p>
+        <p class="price">Harga: Rp {{ product.price|intcomma }}</p>
+        <p class="stock">Stok: {{ product.stock }} buku</p>
+        {% if product.isbn %}
+        <p><strong>ISBN:</strong> {{ product.isbn }}</p>
+        {% endif %}
+        <p><strong>Pemilik:</strong> {{ product.owner.username }}</p>
+        <a href="{% url 'show_main' %}">Kembali ke Daftar Buku</a>
+    </div>
+</body>
+</html>

@@ -1,20 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class Product(models.Model):
-    # Atribut yang wajib
-    name = models.CharField(max_length=255)  # Nama buku
-    price = models.IntegerField()  # Harga buku
-    description = models.TextField()  # Deskripsi buku
-
-    # Atribut tambahan
-    author = models.CharField(max_length=255)  # Penulis buku
-    genre = models.CharField(max_length=100)  # Genre buku
-    publication_year = models.IntegerField()  # Tahun terbit
-
-    # Atribut opsional
-    stock = models.IntegerField(default=0)  # Stok buku
-    isbn = models.CharField(max_length=13, unique=True, null=True, blank=True)  # ISBN buku
+    name = models.CharField(max_length=255)
+    price = models.IntegerField()
+    description = models.TextField()
+    author = models.CharField(max_length=255)
+    genre = models.CharField(max_length=100)
+    publication_year = models.IntegerField()
+    stock = models.IntegerField(default=0)
+    isbn = models.CharField(max_length=13, unique=True, null=True, blank=True)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)  # Menyimpan informasi pemilik produk
 
     def __str__(self):
         return f"{self.name} - {self.author} ({self.publication_year})"
-

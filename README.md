@@ -137,3 +137,51 @@ Berikut langkah-langkah yang saya lakukan untuk mengimplementasikan checklist tu
 ![XML](ScreenShot/XML.png)
 ![JSON by ID](ScreenShot/JSON%20by%20ID.png)
 ![JSON](ScreenShot/JSON.png)
+
+## Jawaban pertanyaan (Tugas 4)
+
+### Jelaskan perbedaan antara HttpResponseRedirect() dan redirect() di Django?
+
+ - **`HttpResponseRedirect()`**: Merupakan class Django yang digunakan untuk membuat HTTP response yang mengarahkan pengguna ke URL tertentu. Ini membutuhkan URL lengkap sebagai parameter.
+ - **`redirect()`**: Merupakan shortcut function Django yang menerima URL, nama view, atau objek model dan secara otomatis membuat `HttpResponseRedirect`. Ini lebih fleksibel dan mudah digunakan.
+
+### 2. Jelaskan cara kerja penghubungan model `Product` dengan `User`!
+Model `Product` dihubungkan dengan `User` menggunakan `ForeignKey` yang merujuk ke model `User`. Setiap produk memiliki pemilik (pengguna) yang terkait sebagai berikut:
+
+```python
+class Product(models.Model):
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    # atribut lainnya
+```
+
+Relasi ini memungkinkan setiap produk memiliki satu pemilik, yaitu pengguna yang terhubung dengan produk tersebut.
+
+### 3. Apa perbedaan antara authentication dan authorization?
+
+ - Authentication: Verifikasi identitas pengguna (login). Jika berhasil, pengguna akan dianggap sebagai pengguna yang valid.
+ - Authorization: Penentuan izin akses setelah pengguna terotentikasi. Ini menentukan tindakan atau data apa yang dapat diakses pengguna.
+ - Proses Login di Django: Saat pengguna login, Django memverifikasi kredensial menggunakan authenticate() dan kemudian menyimpan sesi menggunakan login() jika valid. Setelah itu, otorisasi digunakan untuk menentukan hak akses.
+
+### 4. Bagaimana Django mengingat pengguna yang telah login?
+
+ - Django menggunakan session untuk mengingat pengguna yang telah login. Session ID disimpan dalam cookies, dan setiap kali pengguna mengunjungi situs, Django memeriksa cookies ini untuk mengenali pengguna.
+ - Kegunaan Lain dari Cookies: Selain untuk login, cookies dapat menyimpan preferensi pengguna, data sesi, dan status keranjang belanja. Tidak semua cookies aman, terutama jika tidak dienkripsi dan berpotensi digunakan dalam serangan seperti XSS. Cookies aman harus menggunakan flag HttpOnly dan Secure.
+
+### 5. Implementasi Checklist:
+
+ - Membuat Model Product:
+    - Membuat model Product yang memiliki atribut seperti name, price, description, dan owner (ForeignKey ke User).
+ - Form & View ProductForm:
+    - Membuat ProductForm untuk menerima input data produk dari pengguna.
+ - View untuk Menampilkan Data:
+    - Membuat view show_main untuk menampilkan form input produk dan daftar produk yang ada.
+ - Menambahkan CSRF Protection:
+    - Menambahkan csrf_token pada form di template untuk mencegah serangan CSRF.
+ - JSON & XML View:
+    - Membuat view untuk menampilkan data produk dalam format JSON dan XML.
+ - Routing URL:
+    - Menambahkan URL routing di urls.py untuk menghubungkan view dengan URL.
+ - Pengujian:
+    - Menguji fungsi view dan URL dengan Postman untuk memastikan data ditampilkan dengan benar dalam format JSON dan XML.
