@@ -106,12 +106,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Otomatis login setelah pendaftaran berhasil
-            messages.success(request, "Akun berhasil dibuat dan Anda telah login.")
+            login(request, user)
             return redirect('show_main')
-        else:
-            print(form.errors)  # Debugging untuk melihat kesalahan pada form
-            messages.error(request, "Pendaftaran gagal. Silakan coba lagi.")
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -125,9 +121,9 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('show_main')  # Redirect ke halaman utama jika login berhasil
-            else:
-                form.add_error(None, "Username atau password salah.")  # Tampilkan error jika login gagal
+                response = redirect('show_main')
+                response.set_cookie('last_login', str(request.user.last_login))  # Set cookie last_login
+                return response
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})

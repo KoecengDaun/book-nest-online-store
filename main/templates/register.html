@@ -11,20 +11,80 @@ Register - BookHub
             <div class="card shadow-lg border-0">
                 <div class="card-body p-4">
                     <h3 class="card-title text-center mb-4">Daftar ke BookHub</h3>
+                    
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                    
                     <form method="POST">
                         {% csrf_token %}
+
+                        <!-- Username Field -->
                         <div class="form-group mb-3">
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan Username">
+                            <label for="{{ form.username.id_for_label }}">Username</label>
+                            <input 
+                                type="text" 
+                                class="form-control {% if form.username.errors %}is-invalid{% endif %}" 
+                                id="{{ form.username.id_for_label }}" 
+                                name="{{ form.username.html_name }}" 
+                                placeholder="Masukkan Username" 
+                                value="{{ form.username.value|default_if_none:'' }}"
+                            >
+                            {% if form.username.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
+
+                        <!-- Password Field -->
                         <div class="form-group mb-3">
-                            <label for="password">Password</label>
-                            <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan Password">
+                            <label for="{{ form.password1.id_for_label }}">Password</label>
+                            <input 
+                                type="password" 
+                                class="form-control {% if form.password1.errors %}is-invalid{% endif %}" 
+                                id="{{ form.password1.id_for_label }}" 
+                                name="{{ form.password1.html_name }}" 
+                                placeholder="Masukkan Password"
+                            >
+                            {% if form.password1.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password1.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
+
+                        <!-- Confirm Password Field -->
                         <div class="form-group mb-3">
-                            <label for="password_confirm">Konfirmasi Password</label>
-                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Konfirmasi Password">
+                            <label for="{{ form.password2.id_for_label }}">Konfirmasi Password</label>
+                            <input 
+                                type="password" 
+                                class="form-control {% if form.password2.errors %}is-invalid{% endif %}" 
+                                id="{{ form.password2.id_for_label }}" 
+                                name="{{ form.password2.html_name }}" 
+                                placeholder="Konfirmasi Password"
+                            >
+                            {% if form.password2.errors %}
+                                <div class="invalid-feedback">
+                                    {% for error in form.password2.errors %}
+                                        {{ error }}<br>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
+
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary w-100">Daftar</button>
                         </div>
