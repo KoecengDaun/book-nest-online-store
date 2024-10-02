@@ -2,6 +2,7 @@
 
 ini bagian pembenaran tidak terpatok dealine
 Hanya ingin benerin saja tidak enak apabila belum selesai :3
+untuk tugas ada di branch satu lagi
 
 ## Tautan Aplikasi PWS yang Sudah Dideploy
 Aplikasi PWS dapat diakses melalui tautan berikut:
