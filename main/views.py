@@ -6,12 +6,14 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from .models import Product
 from .forms import ProductForm
+from django.contrib import messages
+
 
 @login_required
 def show_main(request):
-    products = Product.objects.all()  # Menampilkan semua produk yang ada
+    """Menampilkan produk milik user yang sedang login"""
+    products = Product.objects.filter(owner=request.user)
 
-    # Logika untuk menambahkan produk baru
     if request.method == 'POST':
         form = ProductForm(request.POST)
         if form.is_valid():
@@ -27,9 +29,73 @@ def show_main(request):
         'app_name': 'BookHub',
         'class_name': 'Laurentius Arlana Farel Mahardika - BookHub Online Store',
         'form': form,
+        'no_products': products.count() == 0
     }
     
     return render(request, 'main.html', context)
+
+
+# Fungsi untuk edit produk
+@login_required
+def edit_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    if request.method == 'POST':
+        form = ProductForm(request.POST, instance=product)
+        if form.is_valid():
+            form.save()
+            return redirect('show_main')
+    else:
+        form = ProductForm(instance=product)
+    
+    context = {
+        'form': form,
+        'product': product
+    }
+    return render(request, 'edit_product.html', context)
+
+# Fungsi untuk hapus produk
+@login_required
+def delete_product(request, id):
+    product = get_object_or_404(Product, pk=id)
+    if request.method == 'POST':
+        product.delete()
+        return redirect('show_main')
+    
+    context = {
+        'product': product
+    }
+    return render(request, 'confirm_delete.html', context)
+
+@login_required
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = form.save(commit=False)
+            product.owner = request.user  # Assume products have an owner field
+            product.save()
+            return redirect('show_main')  # Redirect to the main page after adding product
+    else:
+        form = ProductForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'add_product.html', context)
+
+@login_required
+def show_all_products(request):
+    products = Product.objects.exclude(owner=request.user)  # Menampilkan semua produk kecuali milik user yang sedang login
+
+    context = {
+        'products': products,
+        'app_name': 'BookHub',
+        'class_name': 'Laurentius Arlana Farel Mahardika - BookHub Online Store',
+    }
+    
+    return render(request, 'all_products.html', context)
+
+
 
 def product_detail(request, id):
     product = get_object_or_404(Product, pk=id)
@@ -40,8 +106,12 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user)  # Otomatis login setelah pendaftaran berhasil
+            messages.success(request, "Akun berhasil dibuat dan Anda telah login.")
             return redirect('show_main')
+        else:
+            print(form.errors)  # Debugging untuk melihat kesalahan pada form
+            messages.error(request, "Pendaftaran gagal. Silakan coba lagi.")
     else:
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
@@ -55,9 +125,9 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                response = redirect('show_main')
-                response.set_cookie('last_login', str(request.user.last_login))  # Set cookie last_login
-                return response
+                return redirect('show_main')  # Redirect ke halaman utama jika login berhasil
+            else:
+                form.add_error(None, "Username atau password salah.")  # Tampilkan error jika login gagal
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})

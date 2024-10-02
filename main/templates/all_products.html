@@ -1,23 +1,15 @@
 {% extends 'base_generic.html' %}
 {% load static %}
 {% block title %}
-Home - BookHub
+Semua Produk - BookHub
 {% endblock %}
 
 {% block content %}
 {% include 'navbar.html' %}
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Produk Saya</h3>
+    <h3 class="text-center mb-4">Semua Produk</h3>
     
-    {% if no_products %}
-        <!-- Jika tidak ada produk -->
-        <div class="text-center">
-            <img src="{% static 'images/no_product.png' %}" alt="No Products" class="img-fluid mb-4" style="max-width: 300px;">
-            <p class="lead">Belum ada produk yang tersedia.</p>
-            <a href="{% url 'add_product' %}" class="btn btn-primary">Tambah Produk</a>
-        </div>
-    {% else %}
-        <!-- Jika ada produk -->
+    {% if products %}
         <div class="row">
             {% for product in products %}
             <div class="col-md-4 mb-4">
@@ -30,14 +22,15 @@ Home - BookHub
                             <strong>Genre:</strong> {{ product.genre }}<br>
                         </p>
                         <div class="mt-auto">
-                            <a href="{% url 'edit_product' product.id %}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{% url 'delete_product' product.id %}" class="btn btn-danger btn-sm">Hapus</a>
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-info">Detail Produk</a>
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+    {% else %}
+        <p class="text-center">Tidak ada produk untuk ditampilkan.</p>
     {% endif %}
 </div>
 {% endblock %}
