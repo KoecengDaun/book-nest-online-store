@@ -1,0 +1,74 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+Tambah Produk - BookHub
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-center mb-4">Tambah Produk Baru</h3>
+                    
+                    <!-- Form for adding product -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <div class="form-group mb-3">
+                            <label for="name">Nama Produk</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Produk">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="price">Harga</label>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Harga">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="author">Penulis</label>
+                            <input type="text" class="form-control" id="author" name="author" placeholder="Penulis">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="genre">Genre</label>
+                            <input type="text" class="form-control" id="genre" name="genre" placeholder="Genre">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="publication_year">Tahun Terbit</label>
+                            <input type="number" class="form-control" id="publication_year" name="publication_year" placeholder="Tahun Terbit">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="description">Deskripsi</label>
+                            <textarea class="form-control" id="description" name="description" placeholder="Deskripsi Produk"></textarea>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="stock">Stok</label>
+                            <input type="number" class="form-control" id="stock" name="stock" placeholder="Stok">
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label for="isbn">ISBN</label>
+                            <input type="text" class="form-control" id="isbn" name="isbn" placeholder="ISBN">
+                        </div>
+                        
+                        <!-- Save Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Tambah Produk</button>
+                        </div>
+                    </form>
+                    
+                    <!-- Cancel Link -->
+                    <div class="text-center mt-3">
+                        <a href="{% url 'show_main' %}" class="btn btn-secondary">Batal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

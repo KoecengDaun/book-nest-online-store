@@ -185,3 +185,55 @@ Relasi ini memungkinkan setiap produk memiliki satu pemilik, yaitu pengguna yang
     - Menambahkan URL routing di urls.py untuk menghubungkan view dengan URL.
  - Pengujian:
     - Menguji fungsi view dan URL dengan Postman untuk memastikan data ditampilkan dengan benar dalam format JSON dan XML.
+
+## Jawaban pertanyaan (Tugas 5)
+
+### 1. Urutan Prioritas Pengambilan CSS Selector
+CSS memiliki aturan spesifik untuk menentukan urutan prioritas (specificity) ketika ada beberapa selector yang diterapkan pada elemen HTML yang sama. Urutan prioritas tersebut adalah sebagai berikut:
+- **Inline CSS**:  Nilai ini memiliki prioritas tertinggi karena didefinisikan langsung dalam atribut `style` di elemen HTML.
+- **ID Selector**: Selector yang menggunakan ID (misalnya `#example`) memiliki prioritas tinggi. Setiap ID harus unik dalam halaman.
+- **Class, Attribute, dan Pseudo-class Selector**: Selector ini memiliki prioritas lebih rendah daripada ID. Misalnya `.example`, `[type="text"]`, atau `:hover`.
+- **Element Selector**: Selector yang menggunakan nama elemen HTML (misalnya `div`, `p`, `h1`) memiliki prioritas terendah.
+- **Universal Selector**: Selector universal (`*`) juga memiliki prioritas terendah.
+
+Jika ada konflik dalam CSS, browser akan mengikuti urutan prioritas di atas untuk menentukan gaya mana yang akan diterapkan pada elemen.
+
+### 2. Pentingnya Responsive Design
+Responsive design adalah konsep penting dalam pengembangan aplikasi web karena memungkinkan tampilan halaman web beradaptasi dengan berbagai ukuran layar dan perangkat. Ini penting karena semakin banyak pengguna mengakses internet melalui perangkat mobile, tablet, dan desktop.
+
+#### Contoh Aplikasi:
+- **Aplikasi yang Sudah Menerapkan Responsive Design**: 
+  - **Twitter**: Halaman Twitter menyesuaikan tampilan baik di desktop maupun perangkat mobile, memungkinkan pengguna untuk mengakses konten dengan nyaman.
+- **Aplikasi yang Belum Menerapkan Responsive Design**: 
+  - Beberapa situs berita atau blog yang masih menggunakan layout statis tanpa menyesuaikan ukuran elemen untuk perangkat mobile, sehingga pengguna harus melakukan zoom in/out untuk membaca konten.
+
+### 3. Perbedaan antara Margin, Border, dan Padding
+- **Margin**: 
+  - Ruang di luar elemen. Margin digunakan untuk menciptakan jarak antara elemen dan elemen lainnya. 
+  - **Implementasi**: Menggunakan properti CSS `margin` seperti `margin: 10px;` untuk memberikan jarak 10 piksel di semua sisi.
+  
+- **Border**: 
+  - Garis di sekitar elemen yang dapat memiliki ketebalan, warna, dan gaya. 
+  - **Implementasi**: Menggunakan properti CSS `border` seperti `border: 1px solid black;` untuk memberikan border 1 piksel dengan warna hitam.
+  
+- **Padding**: 
+  - Ruang di dalam elemen antara konten dan border. Padding digunakan untuk memberikan ruang di dalam elemen.
+  - **Implementasi**: Menggunakan properti CSS `padding` seperti `padding: 10px;` untuk memberikan jarak 10 piksel di dalam elemen di semua sisi.
+
+### 4. Konsep Flexbox dan Grid Layout
+- **Flexbox**:
+  - Flexbox adalah metode layout CSS yang memungkinkan desain elemen dalam satu dimensi (baris atau kolom). Ini mempermudah penyusunan dan penyelarasan elemen dalam kontainer.
+  - **Kegunaan**: Sangat berguna untuk membuat layout responsif, menyeimbangkan ruang antar elemen, dan mengatur alignment dengan mudah.
+
+- **Grid Layout**:
+  - Grid layout adalah metode layout CSS yang memungkinkan desain elemen dalam dua dimensi (baris dan kolom). Ini memberikan kontrol lebih besar dalam mengatur ukuran dan posisi elemen di dalam grid.
+  - **Kegunaan**: Ideal untuk membuat layout yang kompleks dengan struktur yang lebih terorganisir dan memudahkan pengaturan elemen dalam grid yang fleksibel.
+
+### 5. Implementasi Checklist
+Dalam mengimplementasikan checklist, saya mengikuti langkah-langkah berikut:
+1. **Pemahaman Konsep**: Membaca dan memahami setiap konsep dari checklist yang harus diterapkan. Saya mencari referensi tambahan jika diperlukan.
+2. **Eksperimen dengan CSS**: Mencoba berbagai selector CSS dan melihat bagaimana mereka berinteraksi dalam layout halaman web. Saya juga menguji berbagai kombinasi untuk memahami prioritas.
+3. **Responsive Design**: Menerapkan responsive design dengan media queries. Saya menguji tampilan di berbagai perangkat untuk memastikan tampilannya baik di desktop maupun mobile.
+4. **Penggunaan Margin, Border, dan Padding**: Menerapkan dan menguji properti CSS untuk margin, border, dan padding di elemen yang berbeda untuk memahami efeknya terhadap layout.
+5. **Mencoba Flexbox dan Grid**: Mengimplementasikan layout dengan menggunakan flexbox dan grid. Saya bereksperimen dengan berbagai properti untuk mendapatkan hasil yang diinginkan.
+6. **Review dan Perbaikan**: Setelah semua diterapkan, saya mereview tampilan aplikasi, memperbaiki masalah responsivitas, dan memastikan bahwa semua elemen berfungsi dengan baik.
