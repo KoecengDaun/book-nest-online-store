@@ -43,7 +43,7 @@ def edit_product(request, id):
         form.save()
         return HttpResponseRedirect(reverse('show_main'))
     context = {'form': form}
-    return render(request, "edit_product.html", context)
+    return render(request, "product/edit_product.html", context)
 
 # Fungsi untuk hapus produk
 @login_required
@@ -56,7 +56,7 @@ def delete_product(request, id):
     context = {
         'product': product
     }
-    return render(request, 'confirm_delete.html', context)
+    return render(request, 'product/confirm_delete.html', context)
 
 @login_required
 def add_product(request):
@@ -73,7 +73,7 @@ def add_product(request):
     context = {
         'form': form,
     }
-    return render(request, 'add_product.html', context)
+    return render(request, 'product/add_product.html', context)
 
 @login_required
 def show_all_products(request):
@@ -85,13 +85,13 @@ def show_all_products(request):
         'class_name': 'Laurentius Arlana Farel Mahardika - BookHub Online Store',
     }
     
-    return render(request, 'all_products.html', context)
+    return render(request, 'product/all_products.html', context)
 
 
 
 def product_detail(request, id):
     product = get_object_or_404(Product, pk=id)
-    return render(request, 'product_detail.html', {'product': product})
+    return render(request, 'product/product_detail.html', {'product': product})
 
 def register(request):
     if request.method == 'POST':
@@ -102,7 +102,7 @@ def register(request):
             return redirect('show_main')
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'auth/register.html', {'form': form})
 
 def user_login(request):
     if request.method == 'POST':
@@ -118,7 +118,7 @@ def user_login(request):
                 return response
     else:
         form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'auth/login.html', {'form': form})
 
 def user_logout(request):
     logout(request)

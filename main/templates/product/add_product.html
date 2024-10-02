@@ -1,0 +1,129 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+Tambah Produk - BookHub
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Tambah Produk Baru</h4>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Form for adding product -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        
+                        <!-- Nama Produk -->
+                        <div class="form-group mb-3">
+                            <label for="name" class="form-label">Nama Produk</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="name" 
+                                name="name" 
+                                placeholder="Nama Produk" 
+                                required>
+                        </div>
+                        
+                        <!-- Harga -->
+                        <div class="form-group mb-3">
+                            <label for="price" class="form-label">Harga</label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="price" 
+                                name="price" 
+                                placeholder="Harga" 
+                                min="0" 
+                                required>
+                        </div>
+                        
+                        <!-- Penulis -->
+                        <div class="form-group mb-3">
+                            <label for="author" class="form-label">Penulis</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="author" 
+                                name="author" 
+                                placeholder="Penulis">
+                        </div>
+                        
+                        <!-- Genre -->
+                        <div class="form-group mb-3">
+                            <label for="genre" class="form-label">Genre</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="genre" 
+                                name="genre" 
+                                placeholder="Genre">
+                        </div>
+                        
+                        <!-- Tahun Terbit -->
+                        <div class="form-group mb-3">
+                            <label for="publication_year" class="form-label">Tahun Terbit</label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="publication_year" 
+                                name="publication_year" 
+                                placeholder="Tahun Terbit" 
+                                min="1900" 
+                                max="9999">
+                        </div>
+                        
+                        <!-- Deskripsi -->
+                        <div class="form-group mb-3">
+                            <label for="description" class="form-label">Deskripsi</label>
+                            <textarea 
+                                class="form-control" 
+                                id="description" 
+                                name="description" 
+                                rows="4" 
+                                placeholder="Deskripsi Produk"></textarea>
+                        </div>
+                        
+                        <!-- Stok -->
+                        <div class="form-group mb-3">
+                            <label for="stock" class="form-label">Stok</label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                id="stock" 
+                                name="stock" 
+                                placeholder="Stok" 
+                                min="0">
+                        </div>
+                        
+                        <!-- ISBN -->
+                        <div class="form-group mb-3">
+                            <label for="isbn" class="form-label">ISBN</label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="isbn" 
+                                name="isbn" 
+                                placeholder="ISBN">
+                        </div>
+                        
+                        <!-- Save Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary btn-lg">Tambah Produk</button>
+                        </div>
+                    </form>
+                    
+                    <!-- Cancel Link -->
+                    <div class="text-center mt-4">
+                        <a href="{% url 'show_main' %}" class="btn btn-secondary">Batal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

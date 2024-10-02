@@ -1,0 +1,20 @@
+{% extends 'base_generic.html' %}
+{% load humanize %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow border-0" style="max-width: 300px; margin: auto;">
+        <div class="card-header text-center bg-primary text-white">
+            <h5 class="mb-0">Nama Produk</h5>
+        </div>
+        <div class="card-body">
+            <p class="card-text text-muted mb-3">
+                Deskripsi produk. Deskripsi ini dapat berisi informasi lebih lanjut tentang produk.
+            </p>
+            <div class="d-grid">
+                <a href="#" class="btn btn-primary">Detail Produk</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

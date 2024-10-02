@@ -1,4 +1,7 @@
-# BookNest Online Store
+# BookNest Online Store 
+
+ini bagian pembenaran tidak terpatok dealine
+Hanya ingin benerin saja tidak enak apabila belum selesai :3
 
 ## Tautan Aplikasi PWS yang Sudah Dideploy
 Aplikasi PWS dapat diakses melalui tautan berikut:
@@ -237,3 +240,23 @@ Dalam mengimplementasikan checklist, saya mengikuti langkah-langkah berikut:
 4. **Penggunaan Margin, Border, dan Padding**: Menerapkan dan menguji properti CSS untuk margin, border, dan padding di elemen yang berbeda untuk memahami efeknya terhadap layout.
 5. **Mencoba Flexbox dan Grid**: Mengimplementasikan layout dengan menggunakan flexbox dan grid. Saya bereksperimen dengan berbagai properti untuk mendapatkan hasil yang diinginkan.
 6. **Review dan Perbaikan**: Setelah semua diterapkan, saya mereview tampilan aplikasi, memperbaiki masalah responsivitas, dan memastikan bahwa semua elemen berfungsi dengan baik.
+
+## Jawaban Pertanyaan (Tugas 5)
+
+### 1. Manfaat JavaScript dalam Pengembangan Web
+JavaScript memungkinkan halaman web menjadi interaktif dan dinamis tanpa perlu memuat ulang. Ini meningkatkan pengalaman pengguna dengan memungkinkan pemrosesan asinkron dan interaktivitas langsung.
+
+### 2. Fungsi `await` pada `fetch()`
+`await` menunggu hasil dari `fetch()` sebelum melanjutkan ke kode berikutnya. Tanpa `await`, kode berikutnya dieksekusi sebelum hasil `fetch()` tersedia, yang dapat menyebabkan masalah jika data belum siap.
+
+### 3. Alasan Penggunaan `csrf_exempt` pada AJAX POST
+`csrf_exempt` digunakan untuk mengabaikan pengecekan CSRF pada view yang menangani request AJAX POST, terutama ketika token CSRF tidak disertakan dalam request. Tanpa ini, request akan ditolak.
+
+### 4. Alasan Pembersihan Input Dilakukan di Backend
+Validasi dan pembersihan di backend lebih aman karena input yang dikirim dari frontend bisa dimanipulasi. Backend memberikan lapisan keamanan ekstra untuk memastikan data yang masuk sudah sesuai standar.
+
+### 5. Implementasi Checklist
+1. **Form Modal**: Saya memulai dengan menambahkan modal pada halaman untuk menambah produk.
+2. **AJAX Fetch**: Implementasi `fetch()` untuk menangani pengiriman form secara asinkron.
+3. **CSRF Handling**: Menggunakan `csrf_exempt` pada view untuk menghindari masalah CSRF saat pengiriman POST via AJAX.
+4. **Form Submission**: Modal ditutup setelah pengiriman form berhasil dan halaman diperbarui dengan produk baru tanpa reload.

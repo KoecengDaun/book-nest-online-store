@@ -1,0 +1,29 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}
+Hapus Produk - BookHub
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4 class="mb-0">Konfirmasi Hapus Produk</h4>
+                </div>
+                <div class="card-body text-center p-4">
+                    <p>Apakah Anda yakin ingin menghapus produk <strong class="text-danger">{{ product.name }}</strong>?</p>
+                    
+                    <!-- Form for deleting product -->
+                    <form method="POST" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-lg">Hapus Produk</button>
+                    </form>
+                    <a href="{% url 'show_main' %}" class="btn btn-secondary btn-lg ms-3">Batal</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

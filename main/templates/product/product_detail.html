@@ -8,20 +8,22 @@ Detail Produk - BookHub
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow-lg border-0">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">{{ product.name }}</h4>
+                </div>
                 <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">{{ product.name }}</h3>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <p><strong>Harga:</strong> {{ product.price }}</p>
+                            <p><strong>Harga:</strong> Rp {{ product.price|floatformat:2 }}</p>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Penulis:</strong> {{ product.author }}</p>
+                            <p><strong>Penulis:</strong> {{ product.author|default:"Tidak diketahui" }}</p>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <p><strong>Genre:</strong> {{ product.genre }}</p>
+                            <p><strong>Genre:</strong> {{ product.genre|default:"Tidak diketahui" }}</p>
                         </div>
                         <div class="col-md-6">
                             <p><strong>Tahun Terbit:</strong> {{ product.publication_year }}</p>
@@ -34,11 +36,11 @@ Detail Produk - BookHub
                         <p><strong>ISBN:</strong> {{ product.isbn }}</p>
                     </div>
                     <div class="mb-4">
-                        <p><strong>Deskripsi:</strong> {{ product.description }}</p>
+                        <p><strong>Deskripsi:</strong></p>
+                        <p>{{ product.description }}</p>
                     </div>
                     <div class="text-center">
-                        <a href="{% url 'edit_product' product.id %}" class="btn btn-warning">Edit Produk</a>
-                        <a href="{% url 'delete_product' product.id %}" class="btn btn-danger">Hapus Produk</a>
+                        <a href="{% url 'show_all_products' %}" class="btn btn-warning btn-lg me-2">Balik</a>
                     </div>
                 </div>
             </div>
