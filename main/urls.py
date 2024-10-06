@@ -15,4 +15,5 @@ urlpatterns = [
     path('edit/<int:id>/', views.edit_product, name='edit_product'),
     path('delete/<int:id>/', views.delete_product, name='delete_product'),
     path('add-product/', views.add_product, name='add_product'),
+    path('create-ajax/', views.create_book_ajax, name='create_book_ajax'),
 ]

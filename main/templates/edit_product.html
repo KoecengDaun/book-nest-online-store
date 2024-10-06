@@ -5,6 +5,7 @@ Edit Produk - BookHub
 {% endblock %}
 
 {% block content %}
+{% include 'navbar.html' %}
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -53,7 +54,7 @@ Edit Produk - BookHub
                         
                         <div class="form-group mb-3">
                             <label for="isbn">ISBN</label>
-                            <input type="text" class="form-control" id="isbn" name="isbn" value="{{ form.isbn.value }}" placeholder="ISBN">
+                            <input type="text" class="form-control" id="isbn" name="isbn" value="{{ form.isbn.value }}" readonly>
                         </div>
                         
                         <!-- Save Button -->

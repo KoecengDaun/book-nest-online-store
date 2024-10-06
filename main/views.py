@@ -39,11 +39,19 @@ def show_main(request):
 @login_required
 def edit_product(request, id):
     product = get_object_or_404(Product, pk=id)
+    
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
+        
+        # Skip ISBN validation if it belongs to the current product
         if form.is_valid():
-            form.save()
-            return redirect('show_main')
+            if Product.objects.filter(isbn=form.cleaned_data['isbn']).exclude(id=product.id).exists():
+                form.add_error('isbn', 'Product with this ISBN already exists.')
+            else:
+                form.save()
+                return redirect('show_main')
+        else:
+            print(form.errors)
     else:
         form = ProductForm(instance=product)
     
@@ -95,6 +103,18 @@ def show_all_products(request):
     
     return render(request, 'all_products.html', context)
 
+@login_required
+def create_book_ajax(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)  # Assuming you use ProductForm for books
+        if form.is_valid():
+            book = form.save(commit=False)
+            book.owner = request.user  # Assuming a book is linked to the logged-in user
+            book.save()
+            return JsonResponse({'status': 'success', 'book': book.name}, status=200)
+        else:
+            return JsonResponse({'status': 'error', 'errors': form.errors}, status=400)
+    return JsonResponse({'status': 'invalid method'}, status=405)
 
 
 def product_detail(request, id):

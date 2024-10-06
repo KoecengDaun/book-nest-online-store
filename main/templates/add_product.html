@@ -5,25 +5,28 @@ Tambah Produk - BookHub
 {% endblock %}
 
 {% block content %}
+{% include 'navbar.html' %}
 <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-body p-4">
-                    <h3 class="card-title text-center mb-4">Tambah Produk Baru</h3>
-                    
-                    <!-- Form for adding product -->
-                    <form method="POST">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Tambah Produk</button>
+
+    <!-- Modal for adding product -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Tambah Produk</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
                         {% csrf_token %}
-                        
                         <div class="form-group mb-3">
                             <label for="name">Nama Produk</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Produk">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama Produk" required>
                         </div>
-                        
                         <div class="form-group mb-3">
                             <label for="price">Harga</label>
-                            <input type="number" class="form-control" id="price" name="price" placeholder="Harga">
+                            <input type="number" class="form-control" id="price" name="price" placeholder="Harga" required>
                         </div>
                         
                         <div class="form-group mb-3">
@@ -66,9 +69,44 @@ Tambah Produk - BookHub
                     <div class="text-center mt-3">
                         <a href="{% url 'show_main' %}" class="btn btn-secondary">Batal</a>
                     </div>
-                </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  document.getElementById('addProductForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch("{% url 'create_book_ajax' %}", {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'X-CSRFToken': '{{ csrf_token }}',
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === 'success') {
+        // Close the modal and clear the form
+        document.getElementById('addProductForm').reset();
+        var modal = new bootstrap.Modal(document.getElementById('addProductModal'));
+        modal.hide();
+        
+        // Optionally refresh the product list without reloading the page
+        location.reload(); // Or use AJAX to update part of the page
+      } else {
+        // Display error messages
+        alert('Error: ' + JSON.stringify(data.errors));
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
+</script>
 {% endblock %}
