@@ -7,6 +7,8 @@ from django.contrib.auth.decorators import login_required
 from .models import Product
 from .forms import ProductForm
 from django.contrib import messages
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
 @login_required
@@ -42,19 +44,14 @@ def edit_product(request, id):
     
     if request.method == 'POST':
         form = ProductForm(request.POST, instance=product)
-        
-        # Skip ISBN validation if it belongs to the current product
         if form.is_valid():
-            if Product.objects.filter(isbn=form.cleaned_data['isbn']).exclude(id=product.id).exists():
-                form.add_error('isbn', 'Product with this ISBN already exists.')
-            else:
-                form.save()
-                return redirect('show_main')
+            form.save()  # Save the product with the updated fields
+            return redirect('show_main')  # Redirect back to main page after editing
         else:
             print(form.errors)
     else:
         form = ProductForm(instance=product)
-    
+
     context = {
         'form': form,
         'product': product
@@ -83,6 +80,8 @@ def add_product(request):
             product.owner = request.user  # Assume products have an owner field
             product.save()
             return redirect('show_main')  # Redirect to the main page after adding product
+        else:
+            print(form.errors)
     else:
         form = ProductForm()
 
@@ -157,9 +156,8 @@ def user_logout(request):
     return redirect('user_login')
 
 def product_list_json(request):
-    products = Product.objects.all()
-    data = serializers.serialize('json', products)
-    return JsonResponse(data, safe=False)
+    products = Product.objects.all()  # Anda dapat menyesuaikan filter jika diperlukan
+    return HttpResponse(serializers.serialize("json", products), content_type="application/json")
 
 def product_list_xml(request):
     products = Product.objects.all()
@@ -181,3 +179,31 @@ def product_detail_xml(request, id):
         return HttpResponse(data, content_type='application/xml')
     except Product.DoesNotExist:
         return HttpResponse('<error>Product not found</error>', content_type='application/xml', status=404)
+    
+@csrf_exempt
+def create_product_flutter(request):
+    if request.method == 'POST':
+        try:
+            # Parsing data JSON dari body request
+            data = json.loads(request.body)
+
+            # Membuat entri produk baru
+            new_product = Product.objects.create(
+                owner=request.user,  # Pastikan pengguna telah login
+                name=data["name"],
+                price=int(data["price"]),
+                description=data["description"],
+                author=data["author"],
+                genre=data["genre"],
+                publication_year=int(data["publication_year"]),
+                stock=int(data["stock"]),
+                isbn=data.get("isbn", None)  # ISBN bersifat opsional
+            )
+
+            new_product.save()
+
+            return JsonResponse({"status": "success", "message": "Product created successfully!"}, status=200)
+        except Exception as e:
+            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+    else:
+        return JsonResponse({"status": "error", "message": "Invalid request method."}, status=405)
