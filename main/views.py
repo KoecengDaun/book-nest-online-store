@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.core import serializers
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -35,23 +35,15 @@ def show_main(request):
     return render(request, 'main.html', context)
 
 
-# Fungsi untuk edit produk
 @login_required
 def edit_product(request, id):
     product = get_object_or_404(Product, pk=id)
-    if request.method == 'POST':
-        form = ProductForm(request.POST, instance=product)
-        if form.is_valid():
-            form.save()
-            return redirect('show_main')
-    else:
-        form = ProductForm(instance=product)
-    
-    context = {
-        'form': form,
-        'product': product
-    }
-    return render(request, 'edit_product.html', context)
+    form = ProductForm(request.POST or None, instance=product)
+    if form.is_valid() and request.method == "POST":
+        form.save()
+        return HttpResponseRedirect(reverse('show_main'))
+    context = {'form': form}
+    return render(request, "edit_product.html", context)
 
 # Fungsi untuk hapus produk
 @login_required
